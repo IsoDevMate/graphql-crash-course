@@ -4,6 +4,8 @@ export const typeDefs = `#graphql
     title: String!
     platform: [String!]!
     reviews: [Review!]
+    Author: Author!
+    Review: Review!
   }
   type Review {
     id: ID!
