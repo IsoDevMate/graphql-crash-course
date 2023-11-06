@@ -92,9 +92,27 @@ const resolvers = {
       }
       db.authors.push(newAuthor)
       return newAuthor
-    },
+    },/*
+    updateGame(_, { id, edits }) {
+      const gameIndex = db.games.findIndex(game => game.id === id)
+      if (gameIndex === -1) throw new Error('Game not found')
+      const game = db.games[gameIndex]
+      const updatedGame = { ...game, ...edits }
+      db.games[gameIndex] = updatedGame
+      return updatedGame
+    }*/
+    //i want to use the map method  and spread operator as my return type 
+     updatedGame(_, { id, edits }) {
+      db.games=db.games.map(game => {
+        if (game.id === id) {
+          return { ...game, ...edits }
+        }
+        return game
+      })
+     return db.games.find(game => game.id === id)
   },
 
+}
 }
 
 // server setup
