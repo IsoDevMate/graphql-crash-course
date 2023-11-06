@@ -47,6 +47,54 @@ const resolvers = {
       }
     },
   },
+   Mutation: {
+     deleteGame(_, { id }) {
+       const gameIndex = db.games.findIndex(game => game.id === id)  //return the index of the game
+       if (gameIndex === -1) throw new Error('Game not found')
+      const deletedGames = db.games.splice(gameIndex, 1)
+       return deletedGames[0]
+    },
+    deleteReview(_, { id }) {
+      const reviewIndex = db.reviews.findIndex(review => review.id === id)
+      if (reviewIndex === -1) throw new Error('Review not found')
+      const deletedReviews = db.reviews.splice(reviewIndex, 1)
+      return deletedReviews[0]
+    },
+    deleteAuthor(_, { id }) {
+      const authorIndex = db.authors.findIndex(author => author.id === id)
+      if (authorIndex === -1) throw new Error('Author not found')
+      const deletedAuthors = db.authors.splice(authorIndex, 1)
+      return deletedAuthors[0]
+    },
+    createGame(_, { title, platform }) {
+      const newGame = {
+        id: String(db.games.length + 1),
+        title,
+        platform,
+      }
+      db.games.push(newGame)
+      return newGame
+    },
+    createReview(_, { rating, content }) {
+      const newReview = {
+        id: String(db.reviews.length + 1),
+        rating,
+        content,
+      }
+      db.reviews.push(newReview)
+      return newReview
+    },
+    createAuthor(_, { name, verified }) {
+      const newAuthor = {
+        id: String(db.authors.length + 1),
+        name,
+        verified,
+      }
+      db.authors.push(newAuthor)
+      return newAuthor
+    },
+  },
+
 }
 
 // server setup
